@@ -4,7 +4,7 @@
 
 <template>
   <div>
-    APP
+    UDATE STATS
   </div>
 </template>
 

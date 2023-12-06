@@ -4,7 +4,7 @@
 
 <template>
   <div>
-    APP
+    STATS
   </div>
 </template>
 
