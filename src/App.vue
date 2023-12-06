@@ -4,7 +4,9 @@
 
 <template>
   <div>
-    APP
+    <router-link to="/">stats</router-link>
+    <router-link to="/updateStats">update stats</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
