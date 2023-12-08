@@ -1,28 +1,50 @@
 <script setup>
-    import { ref, onMounted } from 'vue'
+
+import { ref, onMounted, reactive } from 'vue'
+
+// data form different premier league footbal teams
+let data = ref([
+{
+    team: 'Arsenal',
+    points: 29,
+}, 
+{
+    team : 'Manchester City',
+    points: 32,
+},
+{
+    team: 'Liverpool',
+    points: 24,
+}
+]);
+
+let socket = null
+
+onMounted(()=> {
+    // connect to websocket
+    socket = new WebSocket("ws://localhost:5173");
+}
+);
+
+// update stats teams after checking for new data
 
 
 
-    // data form different premier league footbal teams
-    let teams = ref([
-    {
-        team: 'Arsenal',
-        points: 0,
-    }, 
-    {
-        team : 'Manchester City',
-        points: 0,
-    }
-    ]);
 
-let socket = null;
+
 </script>
 
 
 <template>
-  <div>
-    
-  </div>
+    <!-- create ul with teams  -->
+    <div>
+        <ul>
+            <li v-for="team in data" :key="team.team">
+                {{ team.team }} : {{ team.points }}
+            </li>
+        </ul>
+    </div>
+  
 </template>
 
 

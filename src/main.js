@@ -20,7 +20,7 @@ history: VueRouter.createWebHashHistory(),
 routes, // short for `routes: routes`
 })
 
-const app = createApp(App) //vue. hier wegdoen omda we die al hebben geimporteerd
+const app = createApp(App) //vue. hier wegdoen omdat we die al hebben geimporteerd
 // Make sure to _use_ the router instance to make the
 // whole app router-aware.
 app.use(router)
