@@ -20,7 +20,7 @@ let points = ref();
 
 onMounted(()=> {
     // connect to websocket
-    socket = new WebSocket("ws://localhost:3000/primus");
+    socket = new WebSocket("wss://labo6-backend-c9ph.onrender.com/primus");
 }
 );
 

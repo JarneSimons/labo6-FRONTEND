@@ -22,7 +22,7 @@ let socket = null
 
 onMounted(()=> {
     // connect to websocket
-    socket = new WebSocket("ws://localhost:3000/primus");
+    socket = new WebSocket("wss://labo6-backend-c9ph.onrender.com/primus");
 
     // after connection update points
     socket.onmessage = (event) => {
@@ -49,7 +49,7 @@ onMounted(()=> {
 
 <template>
     <!-- create ul with teams  -->
-    <div>
+    <div class="listTeams">
         <ul>
             <li v-for="team in data" :key="team.team">
                 {{ team.team }} : {{ team.points }}
@@ -61,4 +61,41 @@ onMounted(()=> {
 
 
 <style scoped>
+    /* body {
+        background-image: url(../assets/score.svg);
+    } */
+
+    .listTeams {
+        background-image: url(../assets/score.svg);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        height: 100vh;
+        background-position: center;
+
+    }
+
+    .listTeams ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        
+        font-size: 0.8em;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        padding-top: 10rem;
+        
+    }
+
+    .listTeams li {
+        padding: 0.5em;
+        margin-bottom: 1rem;
+        background-color: #fff;
+        border-radius: 5%;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
 </style>
