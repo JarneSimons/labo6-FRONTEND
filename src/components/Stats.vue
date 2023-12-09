@@ -22,11 +22,17 @@ let socket = null
 
 onMounted(()=> {
     // connect to websocket
-    socket = new WebSocket("ws://localhost:5173");
+    socket = new WebSocket("ws://localhost:3000/primus");
+
+    // after connection update points
+    socket.onmessage = (event) => {
+        console.log(event.data);
+    }
 }
 );
 
-// update stats teams after checking for new data
+// get data from websocket
+
 
 
 

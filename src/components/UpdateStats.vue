@@ -5,36 +5,39 @@
 let teams = reactive([
 {
     team: 'Arsenal',
-    points: 29,
 }, 
 {
     team : 'Manchester City',
-    points: 32,
 },
 {
     team: 'Manchester United',
-    points: 24,
 }
 ]);
 
 let socket = null
-
+let teamsDropdown = ref();
+let points = ref();
 
 onMounted(()=> {
     // connect to websocket
-    socket = new WebSocket("ws://localhost:5173");
+    socket = new WebSocket("ws://localhost:3000/primus");
 }
 );
 
 // update stats teams 
 const updatePoints = () => {
-    let update = {
-        "team": teamsDropdown.value,
-        "points": points.value,
-        "action": "update"
+    if (socket.readyState === WebSocket.OPEN) {
+        let update = {
+            team: teamsDropdown.value,
+            points: points.value,
+            action: "update"
+        };
+        socket.send(JSON.stringify(update)); 
+    } else {
+        console.error("WebSocket connection not open.");
     }
-    socket.send(JSON.stringify(update));
 }
+
 
 
 
@@ -43,18 +46,18 @@ const updatePoints = () => {
 
 <template>
   <div>
-    <label for="teamsDropdown">Select a Team:</label>
-    <select name="teamsDropdown">
+    <label for="chooseTeam">Select a Team:</label>
+    <select v-model="teamsDropdown" id="chooseTeam">
         <option v-for="team in teams" :key="team.team" :value="team.team">
             {{ team.team }}
         </option>
     </select>
 
     <div>
-        <label for="points">Points:</label>
-        <input type="text" id="points" name="points" :value="teams.points">
+        <label for="points">Points to update:</label>
+        <input type="number" id="points" name="points" v-model="points">
     
-        <button @click="sendStats">Send</button>
+        <button @click="updatePoints">Send</button>
 
     </div>
   </div>
