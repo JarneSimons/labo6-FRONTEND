@@ -5,11 +5,11 @@ import { ref, onMounted, reactive } from 'vue'
 // data form different premier league footbal teams
 let data = ref([
 {
-    team: 'Arsenal',
+    team: 'Aston Villa',
     points: 29,
 }, 
 {
-    team : 'Manchester City',
+    team : 'Chelsea',
     points: 32,
 },
 {
@@ -26,10 +26,16 @@ onMounted(()=> {
 
     // after connection update points
     socket.onmessage = (event) => {
-        console.log(event.data);
+        let message = JSON.parse(event.data);
+        if(message.action === "update") {
+            data.value.push({
+                team: message.team,
+                points: message.points
+            });
+            
     }
 }
-);
+});
 
 // get data from websocket
 
